@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/activity_main"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.segway.robot.TrackingSample_Phone.MainActivity"
+    >
+
+    <RelativeLayout
+        android:id="@+id/layoutTop"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/layoutIP">
+            <EditText
+                android:id="@+id/etIP"
+                android:layout_width="183dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:ems="1"
+                android:inputType="text"
+                android:imeOptions="actionDone"
+                android:layout_gravity="start"
+                android:hint="IP address of Robot"
+                android:visibility="visible" />
+            <Button
+                android:id="@+id/btnBind"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:onClick="onClick"
+                android:layout_gravity="end"
+                android:layout_toEndOf="@id/etIP"
+                android:text="bind" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/layoutSeeker"
+            android:weightSum="1"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="61dp"
+                tools:ignore="UnknownIdInLayout" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentStart="true"
+            android:id="@+id/layoutBoxMessages"
+            android:layout_below="@id/layoutSeeker">
+
+            <EditText
+                android:id="@+id/etMesssage"
+                android:layout_width="183dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="start"
+                android:ems="1"
+                android:hint="Message to send"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:visibility="visible" />
+            <Button
+                android:id="@+id/btnSendMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:onClick="onClick"
+                android:layout_gravity="end"
+                android:layout_toEndOf="@id/etMesssage"
+                android:text="Send Message" />
+            <Button
+                android:id="@+id/btnSendContactKey"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:onClick="onClick"
+                android:layout_gravity="end"
+                android:layout_toEndOf="@id/btnSendMessage"
+                android:text="Send Contact Key" />
+            <Button
+                android:id="@+id/btnResetOrientation"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:onClick="onClick"
+                android:layout_gravity="end"
+                android:layout_toEndOf="@id/btnSendContactKey"
+                android:text="Reset  Orientation" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layoutBoxMessages"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentStart="true">
+            <Spinner
+                android:id="@+id/cmbName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+            <ImageView
+                android:id="@+id/imgPlace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cmbName"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="false">
+
+        <io.github.controlwear.virtual.joystick.android.JoystickView xmlns:custom="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/joystickView"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:layout_gravity="bottom|start"
+
+            custom:JV_backgroundColor="#BBBBBB"
+            custom:JV_borderColor="#000000"
+            custom:JV_borderWidth="4dp"
+            custom:JV_buttonColor="#000000"
+            custom:JV_fixedCenter="false" />
+
+        <io.github.controlwear.virtual.joystick.android.JoystickView xmlns:custom="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/joystickHeadView"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_alignParentEnd="true"
+
+            custom:JV_backgroundColor="#BBBBBB"
+            custom:JV_borderColor="#000000"
+            custom:JV_borderWidth="4dp"
+            custom:JV_buttonColor="#000000"
+            custom:JV_fixedCenter="false" />
+
+    </LinearLayout>
+
+</RelativeLayout>

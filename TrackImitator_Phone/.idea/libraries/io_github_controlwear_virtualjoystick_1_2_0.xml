@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="io.github.controlwear:virtualjoystick-1.2.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/virtualjoystick-1.2.0.aar/a44016c310b03fe058419bb56d9c41bf/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/virtualjoystick-1.2.0.aar/a44016c310b03fe058419bb56d9c41bf/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.github.controlwear/virtualjoystick/1.2.0/a08081c7084f91c362176162a39a1ccb2540957b/virtualjoystick-1.2.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

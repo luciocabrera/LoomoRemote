@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="com.segway.robot:mobile-connectivity-sdk-0.5.82">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mobile-connectivity-sdk-0.5.82.aar/c62a108b80c09de7582fbf8f7bc385bd/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mobile-connectivity-sdk-0.5.82.aar/c62a108b80c09de7582fbf8f7bc385bd/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.segway.robot/mobile-connectivity-sdk/0.5.82/cea633f408c9751be0201aac60adf93ccf2a654e/mobile-connectivity-sdk-0.5.82-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="com.segway.robot:speech-sdk-0.5.157">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/speech-sdk-0.5.157.aar/5d4ab8752b16aa4db6208ecfc5133176/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/speech-sdk-0.5.157.aar/5d4ab8752b16aa4db6208ecfc5133176/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.segway.robot/speech-sdk/0.5.157/6e9f99381586b1f77acda29c70626bc9ec911996/speech-sdk-0.5.157-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

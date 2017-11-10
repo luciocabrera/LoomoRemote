@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="com.segway.robot:basic-class-0.5.70">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/basic-class-0.5.70.aar/6e1dd2b3e5c092ed5262bf80ef82ddc1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/basic-class-0.5.70.aar/6e1dd2b3e5c092ed5262bf80ef82ddc1/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.segway.robot/basic-class/0.5.70/bb4a9375b13ccdec6a12d252ad9346809457dc0f/basic-class-0.5.70-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

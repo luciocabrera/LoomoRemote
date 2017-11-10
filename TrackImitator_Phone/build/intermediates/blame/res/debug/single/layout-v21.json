@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "C:\\Android\\Loomo\\LoomoRemote\\TrackImitator_Phone\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action.xml",
+        "source": "C:\\Users\\lcabrera\\.android\\build-cache\\53ccc28ae49200df9e15eb948634c29cd5a80aee\\output\\res\\layout-v21\\notification_action.xml"
+    },
+    {
+        "merged": "C:\\Android\\Loomo\\LoomoRemote\\TrackImitator_Phone\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\lcabrera\\.android\\build-cache\\53ccc28ae49200df9e15eb948634c29cd5a80aee\\output\\res\\layout-v21\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "C:\\Android\\Loomo\\LoomoRemote\\TrackImitator_Phone\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
+        "source": "C:\\Users\\lcabrera\\.android\\build-cache\\53ccc28ae49200df9e15eb948634c29cd5a80aee\\output\\res\\layout-v21\\notification_template_custom_big.xml"
+    },
+    {
+        "merged": "C:\\Android\\Loomo\\LoomoRemote\\TrackImitator_Phone\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\lcabrera\\.android\\build-cache\\53ccc28ae49200df9e15eb948634c29cd5a80aee\\output\\res\\layout-v21\\notification_action_tombstone.xml"
+    }
+]

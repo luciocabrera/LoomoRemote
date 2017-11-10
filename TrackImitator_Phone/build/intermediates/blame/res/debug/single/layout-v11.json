@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "C:\\Android\\Loomo\\LoomoRemote\\TrackImitator_Phone\\build\\intermediates\\res\\merged\\debug\\layout-v11\\notification_media_action.xml",
+        "source": "C:\\Users\\lcabrera\\.android\\build-cache\\53ccc28ae49200df9e15eb948634c29cd5a80aee\\output\\res\\layout-v11\\notification_media_action.xml"
+    },
+    {
+        "merged": "C:\\Android\\Loomo\\LoomoRemote\\TrackImitator_Phone\\build\\intermediates\\res\\merged\\debug\\layout-v11\\notification_template_big_media_custom.xml",
+        "source": "C:\\Users\\lcabrera\\.android\\build-cache\\53ccc28ae49200df9e15eb948634c29cd5a80aee\\output\\res\\layout-v11\\notification_template_big_media_custom.xml"
+    },
+    {
+        "merged": "C:\\Android\\Loomo\\LoomoRemote\\TrackImitator_Phone\\build\\intermediates\\res\\merged\\debug\\layout-v11\\notification_media_cancel_action.xml",
+        "source": "C:\\Users\\lcabrera\\.android\\build-cache\\53ccc28ae49200df9e15eb948634c29cd5a80aee\\output\\res\\layout-v11\\notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "C:\\Android\\Loomo\\LoomoRemote\\TrackImitator_Phone\\build\\intermediates\\res\\merged\\debug\\layout-v11\\notification_template_big_media_narrow_custom.xml",
+        "source": "C:\\Users\\lcabrera\\.android\\build-cache\\53ccc28ae49200df9e15eb948634c29cd5a80aee\\output\\res\\layout-v11\\notification_template_big_media_narrow_custom.xml"
+    },
+    {
+        "merged": "C:\\Android\\Loomo\\LoomoRemote\\TrackImitator_Phone\\build\\intermediates\\res\\merged\\debug\\layout-v11\\notification_template_big_media.xml",
+        "source": "C:\\Users\\lcabrera\\.android\\build-cache\\53ccc28ae49200df9e15eb948634c29cd5a80aee\\output\\res\\layout-v11\\notification_template_big_media.xml"
+    },
+    {
+        "merged": "C:\\Android\\Loomo\\LoomoRemote\\TrackImitator_Phone\\build\\intermediates\\res\\merged\\debug\\layout-v11\\notification_template_big_media_narrow.xml",
+        "source": "C:\\Users\\lcabrera\\.android\\build-cache\\53ccc28ae49200df9e15eb948634c29cd5a80aee\\output\\res\\layout-v11\\notification_template_big_media_narrow.xml"
+    }
+]
