@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Android\\Loomo\\LoomoRemote_\\TrackImitator_Robot\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+            "outputFile": "C:\\Android\\Loomo\\loomoRemote\\TrackImitator_Robot\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
             "map": [
                 {
                     "source": "C:\\Users\\lcabrera\\.gradle\\caches\\transforms-1\\files-1.1\\recyclerview-v7-23.4.0.aar\\6af266ec9c6c3f8d20057e088affbe02\\res\\values\\values.xml",
@@ -40,6 +40,42 @@
                     }
                 },
                 {
+                    "source": "C:\\Android\\Loomo\\loomoRemote\\TrackImitator_Robot\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "57",
+                        "endLines": "8",
+                        "endColumns": "12",
+                        "endOffsets": "376"
+                    },
+                    "to": {
+                        "startLines": "298",
+                        "startColumns": "4",
+                        "startOffsets": "40491",
+                        "endLines": "303",
+                        "endColumns": "12",
+                        "endOffsets": "40805"
+                    }
+                },
+                {
+                    "source": "C:\\Android\\Loomo\\loomoRemote\\TrackImitator_Robot\\src\\main\\res\\values\\colors.xml",
+                    "from": {
+                        "startLines": "5,4,2,3,6",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "204,157,57,105,255",
+                        "endColumns": "49,45,46,50,43",
+                        "endOffsets": "249,198,99,151,294"
+                    },
+                    "to": {
+                        "startLines": "20,33,34,35,86",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "1226,2236,2282,2329,5806",
+                        "endColumns": "49,45,46,50,43",
+                        "endOffsets": "1271,2277,2324,2375,5845"
+                    }
+                },
+                {
                     "source": "C:\\Users\\lcabrera\\.gradle\\caches\\transforms-1\\files-1.1\\design-23.4.0.aar\\7f6956286d778b81a2201f974e19648b\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,68,78,81,82,85,88,91,95,100,103,108,111,116,120,124,128,134,138,141,150,156,159,169,173",
@@ -59,43 +95,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Android\\Loomo\\LoomoRemote_\\TrackImitator_Robot\\src\\main\\res\\values\\dimens.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "90,149",
-                        "endColumns": "57,55",
-                        "endOffsets": "143,200"
-                    },
-                    "to": {
-                        "startLines": "203,204",
-                        "startColumns": "4,4",
-                        "startOffsets": "34173,34231",
-                        "endColumns": "57,55",
-                        "endOffsets": "34226,34282"
-                    }
-                },
-                {
-                    "source": "C:\\Android\\Loomo\\LoomoRemote_\\TrackImitator_Robot\\src\\main\\res\\values\\styles.xml",
-                    "from": {
-                        "startLines": "3",
-                        "startColumns": "4",
-                        "startOffsets": "57",
-                        "endLines": "8",
-                        "endColumns": "12",
-                        "endOffsets": "376"
-                    },
-                    "to": {
-                        "startLines": "298",
-                        "startColumns": "4",
-                        "startOffsets": "40491",
-                        "endLines": "303",
-                        "endColumns": "12",
-                        "endOffsets": "40805"
-                    }
-                },
-                {
-                    "source": "C:\\Android\\Loomo\\LoomoRemote_\\TrackImitator_Robot\\src\\main\\res\\values\\strings.xml",
+                    "source": "C:\\Android\\Loomo\\loomoRemote\\TrackImitator_Robot\\src\\main\\res\\values\\strings.xml",
                     "from": {
                         "startLines": "1",
                         "startColumns": "4",
@@ -112,20 +112,20 @@
                     }
                 },
                 {
-                    "source": "C:\\Android\\Loomo\\LoomoRemote_\\TrackImitator_Robot\\src\\main\\res\\values\\colors.xml",
+                    "source": "C:\\Android\\Loomo\\loomoRemote\\TrackImitator_Robot\\src\\main\\res\\values\\dimens.xml",
                     "from": {
-                        "startLines": "5,4,2,3,6",
-                        "startColumns": "4,4,4,4,4",
-                        "startOffsets": "204,157,57,105,255",
-                        "endColumns": "49,45,46,50,43",
-                        "endOffsets": "249,198,99,151,294"
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "90,149",
+                        "endColumns": "57,55",
+                        "endOffsets": "143,200"
                     },
                     "to": {
-                        "startLines": "20,33,34,35,86",
-                        "startColumns": "4,4,4,4,4",
-                        "startOffsets": "1226,2236,2282,2329,5806",
-                        "endColumns": "49,45,46,50,43",
-                        "endOffsets": "1271,2277,2324,2375,5845"
+                        "startLines": "203,204",
+                        "startColumns": "4,4",
+                        "startOffsets": "34173,34231",
+                        "endColumns": "57,55",
+                        "endOffsets": "34226,34282"
                     }
                 },
                 {

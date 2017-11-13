@@ -2,7 +2,6 @@ package com.segway.robot.TrackingSample_Phone;
 
 //Basics Android
 import android.app.Activity;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;

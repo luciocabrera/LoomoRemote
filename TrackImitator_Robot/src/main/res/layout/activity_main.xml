@@ -27,29 +27,4 @@
                 android:textSize="25sp"/>
         </com.segway.robot.sdk.emoji.EmojiView>
     </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/layoutEmojy"
-        android:layout_alignParentTop="false"
-        android:layout_alignParentStart="true"
-        android:background="@color/textColor">
-        <TextView
-            android:id="@+id/mTextMessage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="200dp"
-            android:background="@color/backgroundColor"
-            android:textColor="@color/textColor"
-            android:alpha="0.6"
-            android:textSize="25sp"/>
-        <ImageView
-            android:id="@+id/imgPlace"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/mTextMessage"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true" />
-    </RelativeLayout>
 </RelativeLayout>

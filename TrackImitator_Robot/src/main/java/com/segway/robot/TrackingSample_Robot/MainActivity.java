@@ -2,8 +2,6 @@ package com.segway.robot.TrackingSample_Robot;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -27,14 +25,6 @@ import com.segway.robot.sdk.emoji.configure.BehaviorList;
 import com.segway.robot.sdk.emoji.exception.EmojiException;
 import com.segway.robot.sdk.emoji.player.RobotAnimator;
 import com.segway.robot.sdk.emoji.player.RobotAnimatorFactory;
-import com.segway.robot.sdk.locomotion.head.Head;
-
-
-import com.segway.robot.sdk.voice.Speaker;
-import com.segway.robot.sdk.voice.VoiceException;
-import com.segway.robot.sdk.voice.recognition.RecognitionListener;
-import com.segway.robot.sdk.voice.tts.TtsListener;
-
 
 import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
@@ -52,25 +42,16 @@ public class MainActivity extends Activity {
     private Context mContext;
     private DatabaseAccess databaseAccess;
     private TextView mTextView;
-    private ImageView imgPlace;
     private RobotMessageRouter mRobotMessageRouter = null;
     private MessageConnection mMessageConnection = null;
     private BaseControlManager mBase;;
-    private Head mHead;
-    private Speaker mSpeaker;
-    private boolean mSpeakerReady;
+    private HeadControlManager mHead;
+    private SpeechControlManager mSpeaker;
 
-    private ServiceBinder.BindStateListener mRecognitionBindStateListener;
-    private ServiceBinder.BindStateListener mSpeakerBindStateListener;
 
-    private boolean mRecognitionReady;
-    private int mSpeakerLanguage;
-    private int mRecognitionLanguage;
-    private RecognitionListener mRecognitionListener;
-    private TtsListener mTtsListener;
     private EmojiView mEmojiView;
     private Emoji mEmoji;
-    MusicPlayer mMusicPlayer;
+    //MusicPlayer mMusicPlayer;
 
     private static final int  BASE = 0;
     private static final int HEAD = 1;
@@ -213,11 +194,11 @@ public class MainActivity extends Activity {
         initView();
         initConnection();
         mBase = new BaseControlManager(this);
-        initHead();
-        initSpeaker();
+        mSpeaker = new SpeechControlManager(this);
+        mHead = new HeadControlManager(this);
         initEmoji();
-        mMusicPlayer = MusicPlayer.getInstance();
-        mMusicPlayer.initialize(this);
+        //mMusicPlayer = MusicPlayer.getInstance();
+       // mMusicPlayer.initialize(this);
     }
 
     @Override
@@ -225,14 +206,11 @@ public class MainActivity extends Activity {
         super.onDestroy();
 
         // Unbind base service and connection service
-        mHead.unbindService();
-        mSpeaker.unbindService();
         mRobotMessageRouter.unbindService();
     }
 
     private void initView() {
         mTextView = (TextView) findViewById(R.id.tvHint);
-        imgPlace = (ImageView) findViewById(R.id.imgPlace);
         mTextView.setText(getDeviceIp());
     }
 
@@ -241,114 +219,6 @@ public class MainActivity extends Activity {
         mRobotMessageRouter = RobotMessageRouter.getInstance();
         // bind to connection service in robot
         mRobotMessageRouter.bindService(this, mBindStateListener);
-    }
-
-    private void initHead(){
-        // get Head Instance
-        mHead = Head.getInstance();
-        // bindService, if not, all Head API will not work.
-        mHead.bindService(getApplicationContext(), new ServiceBinder.BindStateListener() {
-            @Override
-            public void onBind() {
-                Log.d(TAG, "Head bind success");
-                mHead.setMode(Head.MODE_ORIENTATION_LOCK);
-            }
-
-            @Override
-            public void onUnbind(String reason) {
-                Log.d(TAG, "Head bind failed");
-            }
-        });
-    }
-
-    private void initSpeaker(){
-        // get Speaker Instance
-        mSpeaker = Speaker.getInstance();
-        bindSpeakersListeners();
-
-        //bind the speaker service.
-        mSpeaker.bindService(MainActivity.this, mSpeakerBindStateListener);
-        // get Language
-        //mSpeakerLanguage = mSpeaker.getLanguage();
-    }
-
-    private void bindSpeakersListeners(){
-
-
-        mSpeakerBindStateListener = new ServiceBinder.BindStateListener() {
-            @Override
-            public void onBind() {
-                Log.d(TAG, "Speaker onBind");
-                try {
-                    // make toast to indicate bind success.
-                    //Message msg = mHandler.obtainMessage(ACTION_SHOW_MSG, "Speaker service bind success");
-                    //mHandler.sendMessage(msg);
-
-                    //get speaker service language.
-                    mSpeakerLanguage = mSpeaker.getLanguage();
-                    if (mSpeakerLanguage != mRecognitionLanguage) {
-                        Log.e(TAG, "Speakerlanguage dosen't match Recognitionlanguage!!!");
-                    }
-
-                    // Speak welcome words
-                 //   try {
-                 //       mSpeaker.speak("Hello, my name is Loomo.", mTtsListener);
-                 //   } catch (VoiceException e) {
-                 //       Log.e(TAG, "Speaker speak failed", e);
-                 //   }
-
-                    // if both ready, start recognition
-                    mSpeakerReady = true;
-                    if(mSpeakerReady && mRecognitionReady) {
-                        android.os.Message msg = mHandler.obtainMessage(ACTION_START_RECOGNITION);
-                        mHandler.sendMessage(msg);
-                    }
-                } catch (VoiceException e) {
-                    Log.e(TAG, "Exception: ", e);
-                }
-            }
-
-            @Override
-            public void onUnbind(String s) {
-                Log.d(TAG, "Speaker onUnbind");
-                // make toast to indicate unbind success.
-                android.os.Message msg = mHandler.obtainMessage(ACTION_SHOW_MSG, "Speaker service unbind success");
-                mHandler.sendMessage(msg);
-
-                // stop recognition
-                mSpeakerReady = false;
-                msg = mHandler.obtainMessage(ACTION_STOP_RECOGNITION);
-                mHandler.sendMessage(msg);
-            }
-        };
-
-
-        mTtsListener = new TtsListener() {
-            @Override
-            public void onSpeechStarted(String s) {
-                //s is speech content, callback this method when speech is starting.
-                Log.d(TAG, "onSpeechStarted() called with: s = [" + s + "]");
-                //Message msg = mHandler.obtainMessage(ACTION_SHOW_MSG, "speech start");
-                //mHandler.sendMessage(msg);
-            }
-
-            @Override
-            public void onSpeechFinished(String s) {
-                //s is speech content, callback this method when speech is finish.
-                Log.d(TAG, "onSpeechFinished() called with: s = [" + s + "]");
-                //Message msg = mHandler.obtainMessage(ACTION_SHOW_MSG, "speech end");
-                //mHandler.sendMessage(msg);
-            }
-
-            @Override
-            public void onSpeechError(String s, String s1) {
-                //s is speech content, callback this method when speech occurs error.
-                Log.d(TAG, "onSpeechError() called with: s = [" + s + "], s1 = [" + s1 + "]");
-                android.os.Message msg = mHandler.obtainMessage(ACTION_SHOW_MSG, "speech error: " + s1);
-                mHandler.sendMessage(msg);
-            }
-        };
-
     }
 
     private String getDeviceIp() {
@@ -374,9 +244,9 @@ public class MainActivity extends Activity {
                 break;
             case 1:
                 part = HEAD;
-               break;
-       }
-       return part;
+                break;
+        }
+        return part;
     }
 
     private void actOnData(byte[] bytes){
@@ -407,69 +277,46 @@ public class MainActivity extends Activity {
                         }
                         break;
                     case 1:
-                        try {
-                            int speechRobot = buffer.getInt();
-                            android.os.Message msg_ = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.LOOK_CURIOUS);
-                            mHandler.sendMessage(msg_);
-
-                            //get speaker service language.
-                            //mSpeakerLanguage = mSpeaker.getLanguage();
-                            Log.d(TAG, "start speak");
-                            switch (speechRobot){
-                                case 1:
-                                    //mSpeaker.speak("Hi everybody", mTtsListener);
-                                    loomoSpeaks("Hi everybody");
-                                    break;
-                                case 2:
-                                    //mSpeaker.speak("Hi body, How is going?", mTtsListener);
-                                    loomoSpeaks("Hi body, How is going?");
-                                    break;
-                                case 3:
-                                    //mSpeaker.speak("I am very well", mTtsListener);
-                                    loomoSpeaks("I am very well");
-                                    break;
-                                case 4:
-                                    //mSpeaker.speak("would you like something to drink?", mTtsListener);
-                                    loomoSpeaks("would you like something to drink?");
-                                    break;
-                                case 5:
-                                    //mSpeaker.speak("very good, you can go to the kitchen and serve yourself", mTtsListener);
-                                    loomoSpeaks("very good, you can go to the kitchen and serve yourself");
-                                    break;
-                                case 6:
-                                    //mSpeaker.speak("I am sorry, I didn't get it, could you please repeat again?", mTtsListener);
-                                    loomoSpeaks("I am sorry, I didn't get it, could you please repeat again?");
-                                    break;
-                                case 7:
-                                    mSpeaker.speak("hello sweetheart", mTtsListener);
-                                    break;
-                                case 8:
-                                    mSpeaker.speak("I love you so much, I am in love with you, and i would like to marry you", mTtsListener);
-                                    break;
-                            }
-
-                        } catch (VoiceException e) {
-                            Log.w(TAG, "Exception: ", e);
+                        int speechRobot = buffer.getInt();
+                        android.os.Message msg_ = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.LOOK_CURIOUS);
+                        mHandler.sendMessage(msg_);
+                        Log.d(TAG, "start speak");
+                        switch (speechRobot){
+                            case 1:
+                                mSpeaker.loomoSpeaks("Hi everybody");
+                                break;
+                            case 2:
+                                mSpeaker.loomoSpeaks("Hi body, How is going?");
+                                break;
+                            case 3:
+                                mSpeaker.loomoSpeaks("I am very well");
+                                break;
+                            case 4:
+                                mSpeaker.loomoSpeaks("would you like something to drink?");
+                                break;
+                            case 5:
+                                mSpeaker.loomoSpeaks("very good, you can go to the kitchen and serve yourself");
+                                break;
+                            case 6:
+                                mSpeaker.loomoSpeaks("I am sorry, I didn't get it, could you please repeat again?");
+                                break;
+                            case 7:
+                                mSpeaker.loomoSpeaks("hello sweetheart");
+                                break;
+                            case 8:
+                                mSpeaker.loomoSpeaks("I love you so much, I am in love with you, and i would like to marry you");
+                                break;
                         }
+
                         break;
                     case 2:
-                        try{
-                            int speechRobot = buffer.getInt();
-                            String strKey =  String.valueOf(speechRobot);
-                            getMessageContact(String.valueOf(strKey));
-                            //mSpeaker.speak("I will try to get an image from the database", mTtsListener);
-                            //loomoSpeaks("I will try to get an image from the database");
-                            //getMessageContact(String.valueOf(speechRobot));
 
-                            android.os.Message msg_ = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.LOOK_CURIOUS);
-                            mHandler.sendMessage(msg_);
+                        speechRobot = buffer.getInt();
+                        String strKey =  String.valueOf(speechRobot);
+                        getMessageContact(String.valueOf(strKey));
+                        msg_ = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.LOOK_CURIOUS);
+                        mHandler.sendMessage(msg_);
 
-                            //get speaker service language.
-                            mSpeakerLanguage = mSpeaker.getLanguage();
-
-                        } catch (VoiceException e) {
-                            Log.w(TAG, "Exception: ", e);
-                        }
                         break;
                 }
 
@@ -480,21 +327,7 @@ public class MainActivity extends Activity {
     }
 
 
-    private void loomoSpeaks(String TextToSpeak){
-        try{
-            android.os.Message msg = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.LOOK_CURIOUS);
-            mHandler.sendMessage(msg);
 
-            //get speaker service language.
-            mSpeakerLanguage = mSpeaker.getLanguage();
-
-            mSpeaker.speak(TextToSpeak, mTtsListener);
-
-        } catch (VoiceException e) {
-            Log.w(TAG, "Exception: ", e);
-        }
-
-    }
     // init EmojiView.
     private void initEmoji() {
         mEmoji = Emoji.getInstance();
@@ -504,44 +337,16 @@ public class MainActivity extends Activity {
 
     private void getMessageContact(String ContactId){
 
-
-        //loomoSpeaks("OPENING DATABASE");
-        // Define final variables since they have to be accessed from inner class
-        //DatabaseAccess databaseAccess = DatabaseAccess.getInstance(mContext);
-
         // Open the database
         databaseAccess.open();
-
 
         //String data = databaseAccess.getDataContact(ContactId);
         String speech =  databaseAccess.getDataContact(ContactId);
         mTextView.setText(speech);
-        loomoSpeaks(speech);
-        //mTextView.setText(ContactId + " -- " + data );
-        //loomoSpeaks("now getting image");
-        // Retrieve the selected image as byte[]
-     //   byte[] data = databaseAccess.getImage(ContactId);
-
-        //loomoSpeaks("converting to bitmap");
-        // Convert to Bitmap
-     //   Bitmap image =  toBitmap(data);
-
-     //   loomoSpeaks("setting the image");
-        // Set to the imgPlace
-     //  imgPlace.setImageBitmap(image);
-
-
+        mSpeaker.loomoSpeaks(speech);
 
         // Close the database
         databaseAccess.close();
     }
-    /**
-     * Convert byte[] to Bitmap
-     *
-     * @param image
-     * @return
-     */
-    public static Bitmap toBitmap(byte[] image) {
-        return BitmapFactory.decodeByteArray(image, 0, image.length);
-    }
 }
+

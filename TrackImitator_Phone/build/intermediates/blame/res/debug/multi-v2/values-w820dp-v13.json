@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Android\\Loomo\\LoomoRemote\\TrackImitator_Phone\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w820dp-v13\\values-w820dp-v13.xml",
+            "outputFile": "C:\\Android\\Loomo\\loomoRemote\\TrackImitator_Phone\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w820dp-v13\\values-w820dp-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Android\\Loomo\\LoomoRemote\\TrackImitator_Phone\\src\\main\\res\\values-w820dp\\dimens.xml",
+                    "source": "C:\\Android\\Loomo\\loomoRemote\\TrackImitator_Phone\\src\\main\\res\\values-w820dp\\dimens.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "4",

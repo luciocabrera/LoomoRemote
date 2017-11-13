@@ -6,100 +6,100 @@
     density="hdpi"
     format="10"
     plugin-version="3.0.0"
-    timestamp="1510303413536"
-    token="2201915294750977378"
+    timestamp="1510319498476"
+    token="7286388023231240047"
     verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="1985" />
+        duration="0" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="295" />
+        duration="410" />
     <task
         name="verifier"
-        duration="65" />
+        duration="666" />
 
     <artifact
-        location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_3.apk"
+        location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\intermediates\split-apk\debug\dep\dependencies.apk"
         type="SPLIT" />
     <artifact
-        location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\outputs\apk\debug\TrackImitator_Robot-debug.apk"
+        location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_0.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_1.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_2.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_3.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_4.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_5.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_6.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_7.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_8.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_9.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\outputs\apk\debug\TrackImitator_Robot-debug.apk"
         type="SPLIT_MAIN" />
-    <artifact
-        location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_5.apk"
-        type="SPLIT" />
-    <artifact
-        location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\intermediates\split-apk\debug\dep\dependencies.apk"
-        type="SPLIT" />
-    <artifact
-        location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_4.apk"
-        type="SPLIT" />
-    <artifact
-        location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_1.apk"
-        type="SPLIT" />
-    <artifact
-        location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_0.apk"
-        type="SPLIT" />
-    <artifact
-        location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_2.apk"
-        type="SPLIT" />
-    <artifact
-        location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_9.apk"
-        type="SPLIT" />
-    <artifact
-        location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_6.apk"
-        type="SPLIT" />
-    <artifact
-        location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_7.apk"
-        type="SPLIT" />
-    <artifact
-        location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_8.apk"
-        type="SPLIT" />
 
     <build
         build-mode="FULL"
-        timestamp="1510303413536"
+        timestamp="1510319498476"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
-            location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_3.apk"
+            location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\intermediates\split-apk\debug\dep\dependencies.apk"
             type="SPLIT" />
         <artifact
-            location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\outputs\apk\debug\TrackImitator_Robot-debug.apk"
+            location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_0.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_1.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_2.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_3.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_4.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_5.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_6.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_7.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_8.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_9.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Android\Loomo\loomoRemote\TrackImitator_Robot\build\outputs\apk\debug\TrackImitator_Robot-debug.apk"
             type="SPLIT_MAIN" />
-        <artifact
-            location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_5.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\intermediates\split-apk\debug\dep\dependencies.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_4.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_1.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_0.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_2.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_9.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_6.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_7.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Android\Loomo\LoomoRemote_\TrackImitator_Robot\build\intermediates\split-apk\debug\slices\slice_8.apk"
-            type="SPLIT" />
     </build>
 
 </instant-run>

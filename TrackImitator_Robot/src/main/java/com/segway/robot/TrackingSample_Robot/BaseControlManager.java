@@ -8,12 +8,12 @@ import com.segway.robot.sdk.locomotion.sbv.Base;
 
 
 public class BaseControlManager {
-    private static final String TAG = "HeadControlManager";
+    private static final String TAG = "BaseControlManager";
     private Base mBase;
     private boolean mIsBindSuccess = false;
 
     public BaseControlManager(Context context) {
-        Log.d(TAG, "HeadControlHandler() called");
+        Log.d(TAG, "BaseControlManager() called");
         mBase = Base.getInstance();
         mBase.bindService(context.getApplicationContext(), mBindStateListener);
     }

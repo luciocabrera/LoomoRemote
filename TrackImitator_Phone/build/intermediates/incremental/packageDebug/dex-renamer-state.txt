@@ -1,7 +1,0 @@
-#Thu Oct 26 10:36:58 CEST 2017
-base.0=C\:\\Android\\Loomo\\LoomoRemote\\TrackImitator_Phone\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_c050d17634de3227371e237b1f85d044a6efc77b
-renamed.1=classes2.dex
-renamed.0=classes.dex
-file.1=C\:\\Android\\Loomo\\LoomoRemote\\TrackImitator_Phone\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_f10e9882b484bbe2f34c1cc01ce9f32e90f0ef34\\classes.dex
-base.1=C\:\\Android\\Loomo\\LoomoRemote\\TrackImitator_Phone\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_f10e9882b484bbe2f34c1cc01ce9f32e90f0ef34
-file.0=C\:\\Android\\Loomo\\LoomoRemote\\TrackImitator_Phone\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_c050d17634de3227371e237b1f85d044a6efc77b\\classes.dex
