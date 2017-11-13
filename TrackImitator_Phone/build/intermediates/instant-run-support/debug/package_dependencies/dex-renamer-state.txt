@@ -1,4 +1,0 @@
-#Fri Nov 10 10:30:55 CET 2017
-base.0=C\:\\Android\\Loomo\\loomoRemote\\TrackImitator_Phone\\build\\intermediates\\transforms\\dexMerger\\debug\\11
-renamed.0=classes.dex
-file.0=C\:\\Android\\Loomo\\loomoRemote\\TrackImitator_Phone\\build\\intermediates\\transforms\\dexMerger\\debug\\11\\classes.dex

@@ -1,0 +1,15 @@
+*.DS_Store
+
+TrackImitator_Robot/.gradle
+TrackImitator_Robot/.idea
+TrackImitator_Robot/build
+TrackImitator_Robot/gradle
+TrackImitator_Robot/src/androidTest
+TrackImitator_Robot/src/test
+
+TrackImitator_Phone/.gradle
+TrackImitator_Phone/.idea
+TrackImitator_Phone/build
+TrackImitator_Phone/gradle
+TrackImitator_Phone/src/androidTest
+TrackImitator_Phone/src/test

@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="C:\Android\Loomo\loomoRemote\TrackImitator_Phone\src\main\assets"><file name="databases/loomoRemote" path="C:\Android\Loomo\loomoRemote\TrackImitator_Phone\src\main\assets\databases\loomoRemote"/></source><source path="C:\Android\Loomo\loomoRemote\TrackImitator_Phone\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="C:\Android\Loomo\loomoRemote\TrackImitator_Phone\src\debug\assets"/></dataSet></merger>

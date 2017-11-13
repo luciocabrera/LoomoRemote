@@ -130,12 +130,13 @@
         </RelativeLayout>
 
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="1"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="false">
+        android:layout_alignParentStart="false"
+        android:weightSum="1">
 
         <io.github.controlwear.virtual.joystick.android.JoystickView xmlns:custom="http://schemas.android.com/apk/res-auto"
             android:id="@+id/joystickView"
@@ -143,6 +144,7 @@
             android:layout_height="250dp"
             android:layout_gravity="bottom|start"
 
+            android:baselineAligned="false"
             custom:JV_backgroundColor="#BBBBBB"
             custom:JV_borderColor="#000000"
             custom:JV_borderWidth="4dp"
@@ -153,9 +155,9 @@
             android:id="@+id/joystickHeadView"
             android:layout_width="match_parent"
             android:layout_height="250dp"
+            android:layout_alignParentEnd="true"
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:layout_alignParentEnd="true"
 
             custom:JV_backgroundColor="#BBBBBB"
             custom:JV_borderColor="#000000"
