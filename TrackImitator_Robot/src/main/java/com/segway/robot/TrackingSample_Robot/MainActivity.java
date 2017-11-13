@@ -7,7 +7,6 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,8 +35,8 @@ public class MainActivity extends Activity {
     private static final int ACTION_SHOW_MSG = 1;
     private static final int ACTION_BEHAVE = 2;
     private static final int ACTION_DOWNLOAD_AND_TRACK = 3;
-    private static final int ACTION_START_RECOGNITION = 2;
-    private static final int ACTION_STOP_RECOGNITION = 3;
+    private static final int ACTION_START_RECOGNITION = 4;
+    private static final int ACTION_STOP_RECOGNITION = 5;
 
     private Context mContext;
     private DatabaseAccess databaseAccess;
@@ -47,14 +46,15 @@ public class MainActivity extends Activity {
     private BaseControlManager mBase;;
     private HeadControlManager mHead;
     private SpeechControlManager mSpeaker;
-
+    private ListenControlManager mRecognizer;
 
     private EmojiView mEmojiView;
     private Emoji mEmoji;
-    //MusicPlayer mMusicPlayer;
-
-    private static final int  BASE = 0;
+    private static final int BASE = 0;
     private static final int HEAD = 1;
+    private static final int MOVE = 0;
+    private static final int DIALOG = 1;
+    private static final int CONTACT = 2;
 
 
     private final Handler mHandler = new Handler() {
@@ -64,6 +64,12 @@ public class MainActivity extends Activity {
             switch (msg.what) {
                 case ACTION_SHOW_MSG:
                     mTextView.setText(msg.obj.toString());
+                    break;
+                case ACTION_START_RECOGNITION:
+                     mRecognizer.startRecognition();
+                     break;
+                case ACTION_STOP_RECOGNITION:
+                    mRecognizer.stopRecognition();
                     break;
                 case ACTION_BEHAVE:
                     try {
@@ -91,7 +97,6 @@ public class MainActivity extends Activity {
                     Message message = (Message)msg.obj;
                     byte[] bytes = (byte[]) message.getContent();
                     actOnData(bytes);
-
                     break;
             }
         }
@@ -188,17 +193,18 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         mContext = this;
         databaseAccess = DatabaseAccess.getInstance(this);
         mEmojiView = (EmojiView) findViewById(R.id.face);
-        initView();
-        initConnection();
         mBase = new BaseControlManager(this);
         mSpeaker = new SpeechControlManager(this);
         mHead = new HeadControlManager(this);
+        mRecognizer = new ListenControlManager(this, mHandler, mSpeaker);
+
+        initView();
+        initConnection();
         initEmoji();
-        //mMusicPlayer = MusicPlayer.getInstance();
-       // mMusicPlayer.initialize(this);
     }
 
     @Override
@@ -249,74 +255,46 @@ public class MainActivity extends Activity {
         return part;
     }
 
+    private int getCalled(int idCalled){
+
+        int called = MOVE;
+        switch (idCalled) {
+            case 0:
+                called = MOVE;
+                break;
+            case 1:
+                called = DIALOG;
+                break;
+            case 2:
+                called = CONTACT;
+                break;
+        }
+        return called;
+    }
+
     private void actOnData(byte[] bytes){
         ByteBuffer buffer = ByteBuffer.wrap(bytes);
         int callRobot = buffer.getInt();
+        callRobot = getCalled(callRobot);
 
         while(buffer.hasRemaining()) {
             try {
                 switch (callRobot){
-                    case 0:
+                    case MOVE:
                         int partRobot = buffer.getInt();
                         partRobot = getpartRobot(partRobot);
                         float linearVelocity = (float) buffer.getDouble();
                         float angularVelocity = (float) buffer.getDouble();
-                        android.os.Message msg = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.LOOK_COMFORT);
-                        mHandler.sendMessage(msg);
-                        switch (partRobot) {
-                            case BASE:
-                                Log.e(TAG, "Moving Base Linear: " + linearVelocity + "< >Angular:" + angularVelocity);
-                                mBase.setLinearVelocity(linearVelocity);
-                                mBase.setAngularVelocity(angularVelocity);
-                                break;
-                            case HEAD:
-                                Log.e(TAG, "Moving Head Linear: " + linearVelocity + "< >Angular:" + angularVelocity);
-                                mHead.setYawAngularVelocity(angularVelocity);
-                                mHead.setPitchAngularVelocity(linearVelocity);
-                                break;
-                        }
+                        moveRobot(partRobot, linearVelocity, angularVelocity);
                         break;
-                    case 1:
-                        int speechRobot = buffer.getInt();
-                        android.os.Message msg_ = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.LOOK_CURIOUS);
-                        mHandler.sendMessage(msg_);
-                        Log.d(TAG, "start speak");
-                        switch (speechRobot){
-                            case 1:
-                                mSpeaker.loomoSpeaks("Hi everybody");
-                                break;
-                            case 2:
-                                mSpeaker.loomoSpeaks("Hi body, How is going?");
-                                break;
-                            case 3:
-                                mSpeaker.loomoSpeaks("I am very well");
-                                break;
-                            case 4:
-                                mSpeaker.loomoSpeaks("would you like something to drink?");
-                                break;
-                            case 5:
-                                mSpeaker.loomoSpeaks("very good, you can go to the kitchen and serve yourself");
-                                break;
-                            case 6:
-                                mSpeaker.loomoSpeaks("I am sorry, I didn't get it, could you please repeat again?");
-                                break;
-                            case 7:
-                                mSpeaker.loomoSpeaks("hello sweetheart");
-                                break;
-                            case 8:
-                                mSpeaker.loomoSpeaks("I love you so much, I am in love with you, and i would like to marry you");
-                                break;
-                        }
-
+                    case DIALOG:
+                        int idSpeech = buffer.getInt();
+                        speakRobot(idSpeech);
                         break;
-                    case 2:
-
-                        speechRobot = buffer.getInt();
-                        String strKey =  String.valueOf(speechRobot);
-                        getMessageContact(String.valueOf(strKey));
-                        msg_ = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.LOOK_CURIOUS);
-                        mHandler.sendMessage(msg_);
-
+                    case CONTACT:
+                        int idContact = buffer.getInt();
+                        String strIdContact=  String.valueOf(idContact);
+                        getMessageContact(String.valueOf(strIdContact));
                         break;
                 }
 
@@ -326,10 +304,52 @@ public class MainActivity extends Activity {
         }
     }
 
+    private void moveRobot(int partRobot, float linearVelocity, float angularVelocity) {
 
+        android.os.Message msg = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.LOOK_COMFORT);
+        mHandler.sendMessage(msg);
 
+        switch (partRobot) {
+            case BASE:
+                mBase.setLinearVelocity(linearVelocity);
+                mBase.setAngularVelocity(angularVelocity);
+                break;
+            case HEAD:
+                mHead.setYawAngularVelocity(angularVelocity);
+                mHead.setPitchAngularVelocity(linearVelocity);
+                break;
+        }
+    }
+
+    private void speakRobot(int IdSpeech){
+
+        android.os.Message msg = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.LOOK_CURIOUS);
+        mHandler.sendMessage(msg);
+
+        switch (IdSpeech){
+            case 1:
+                mSpeaker.loomoSpeaks("Hi everybody");
+                break;
+            case 2:
+                mSpeaker.loomoSpeaks("Hi body, How is going?");
+                break;
+            case 3:
+                mSpeaker.loomoSpeaks("I am very well");
+                break;
+            case 4:
+                mSpeaker.loomoSpeaks("would you like something to drink?");
+                break;
+            case 5:
+                mSpeaker.loomoSpeaks("very good, you can go to the kitchen and serve yourself");
+                break;
+            case 6:
+                mSpeaker.loomoSpeaks("I am sorry, I didn't get it, could you please repeat again?");
+                break;
+        }
+    }
     // init EmojiView.
     private void initEmoji() {
+
         mEmoji = Emoji.getInstance();
         mEmoji.init(this);
         mEmoji.setEmojiView((EmojiView) findViewById(R.id.face));
@@ -337,10 +357,12 @@ public class MainActivity extends Activity {
 
     private void getMessageContact(String ContactId){
 
+        android.os.Message msg = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.LOOK_CURIOUS);
+        mHandler.sendMessage(msg);
+
         // Open the database
         databaseAccess.open();
 
-        //String data = databaseAccess.getDataContact(ContactId);
         String speech =  databaseAccess.getDataContact(ContactId);
         mTextView.setText(speech);
         mSpeaker.loomoSpeaks(speech);

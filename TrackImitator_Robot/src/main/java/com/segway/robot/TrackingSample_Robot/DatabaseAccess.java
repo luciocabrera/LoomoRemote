@@ -10,14 +10,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
+
 
 public class DatabaseAccess extends Activity  {
     private SQLiteOpenHelper openHelper;
@@ -37,11 +33,6 @@ public class DatabaseAccess extends Activity  {
 
     }
 
-    /**
-     * Private constructor to avoid object creation from outside classes.
-     *
-     * @param context
-     */
     private DatabaseAccess(Context context) {
         this.openHelper = new DatabaseOpenHelper(context);
     }
@@ -76,9 +67,9 @@ public class DatabaseAccess extends Activity  {
     }
 
     /**
-     * Read all quotes from the database.
+     * Read all names from the contacts database.
      *
-     * @return a List of quotes
+     * @return a List of contact names
      */
     public List<String> getNames() {
         List<String> list = new ArrayList<>();
@@ -139,5 +130,21 @@ public class DatabaseAccess extends Activity  {
         cursor.close();
         return  greeting + " " +  name + " " +  question ;
 
+    }
+
+    public String getDialogs(){
+
+        String sentence = "";
+        String response = "";
+        Cursor cursor =  database.rawQuery("SELECT sentence, response FROM dialogs", null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            sentence =  cursor.getString(0);
+            response =  cursor.getString(1);
+       }
+        cursor.close();
+
+        return response;
     }
 }
