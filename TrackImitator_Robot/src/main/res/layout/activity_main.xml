@@ -24,6 +24,8 @@
                 android:background="@color/backgroundColor"
                 android:textColor="@color/textColor"
                 android:alpha="0.6"
+                android:maxLines="4"
+                android:scrollbars = "vertical"
                 android:textSize="25sp"/>
         </com.segway.robot.sdk.emoji.EmojiView>
     </RelativeLayout>

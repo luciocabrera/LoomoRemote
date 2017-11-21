@@ -66,8 +66,8 @@ public class MainActivity extends Activity {
                     mTextView.setText(msg.obj.toString());
                     break;
                 case ACTION_START_RECOGNITION:
-                     mRecognizer.startRecognition();
-                     break;
+                    mRecognizer.startRecognition();
+                    break;
                 case ACTION_STOP_RECOGNITION:
                     mRecognizer.stopRecognition();
                     break;

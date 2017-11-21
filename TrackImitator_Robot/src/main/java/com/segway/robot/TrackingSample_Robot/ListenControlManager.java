@@ -33,7 +33,7 @@ public class ListenControlManager {
     private ServiceBinder.BindStateListener mRecognitionBindStateListener;
     private Handler mHandler;
     private static final int ACTION_SHOW_MSG = 1;
-    private static final int ACTION_BEHAVE = 4;
+    private String[][] dialogs;
 
     public ListenControlManager(Context context, Handler mHandler_, SpeechControlManager mSpeaker_) {
         Log.d(TAG, "ListenControlManager() called");
@@ -43,7 +43,17 @@ public class ListenControlManager {
         this.mHandler = mHandler_;
         //bind the recognition service.
         mRecognizer.bindService(context.getApplicationContext(), mRecognitionBindStateListener);
+        this.initDialogs(context);
+    }
 
+    private void initDialogs(Context context){
+        final DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context.getApplicationContext());
+
+        databaseAccess.open();
+
+        dialogs = databaseAccess.getDialogs();
+
+        databaseAccess.close();
     }
 
     // init listeners.
@@ -91,8 +101,8 @@ public class ListenControlManager {
             @Override
             public void onStandby() {
                 Log.d(TAG, "onStandby");
-                //    android.os.Message msg = mHandler.obtainMessage(ACTION_SHOW_MSG, "Loomo awake, you can say \"OK Loomo\" \n or touch screen");
-                //    mHandler.sendMessage(msg);
+                android.os.Message msg = mHandler.obtainMessage(ACTION_SHOW_MSG, "Loomo awake, you can say \"OK Loomo\" \n or touch screen");
+                mHandler.sendMessage(msg);
             }
 
             @Override
@@ -106,8 +116,6 @@ public class ListenControlManager {
             public void onWakeupError(String s) {
                 //show the wakeup error reason.
                 Log.d(TAG, "onWakeupError:" + s);
-                //  android.os.Message msg = mHandler.obtainMessage(ACTION_SHOW_MSG, "wakeup error:" + s);
-                // mHandler.sendMessage(msg);
             }
         };
 
@@ -115,8 +123,13 @@ public class ListenControlManager {
             @Override
             public void onRecognitionStart() {
                 Log.d(TAG, "onRecognitionStart");
-                android.os.Message statusMsg = mHandler.obtainMessage(ACTION_SHOW_MSG, "Loomo begin recognition, say:\n look up, look down, look left, look right," +
-                        " turn left, turn right, turn around, turn full, are you happy, are you worried, are you scared");
+
+                String messageString = "";
+                for( int i = 0; i <= dialogs.length - 1; i++) {
+                    messageString += ", " + dialogs[i][0];
+                }
+                android.os.Message statusMsg = mHandler.obtainMessage(ACTION_SHOW_MSG, "Loomo begin recognition, say:\n " +
+                        messageString);
                 mHandler.sendMessage(statusMsg);
             }
 
@@ -128,7 +141,6 @@ public class ListenControlManager {
                 android.os.Message resultMsg = mHandler.obtainMessage(ACTION_SHOW_MSG, "recognition result: " + result + ", confidence:" + recognitionResult.getConfidence());
                 mHandler.sendMessage(resultMsg);
 
-                // recognize instruction
                 if (result.contains("hello") || result.contains("hi")) {
                     try {
                         mRecognizer.removeGrammarConstraint(mMoveSlotGrammar);
@@ -137,50 +149,17 @@ public class ListenControlManager {
                     }
                     //true means continuing to recognition, false means wakeup.
                     return true;
-                } else if (result.contains("look") && result.contains("left")) {
-                    android.os.Message msg = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.LOOK_LEFT);
-                    mHandler.sendMessage(msg);
-                } else if (result.contains("look") && result.contains("right")) {
-                    android.os.Message msg = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.LOOK_RIGHT);
-                    mHandler.sendMessage(msg);
-                } else if (result.contains("look") && result.contains("up")) {
-                    android.os.Message msg = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.LOOK_UP);
-                    mHandler.sendMessage(msg);
-                } else if (result.contains("look") && result.contains("down")) {
-                    android.os.Message msg = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.LOOK_DOWN);
-                    mHandler.sendMessage(msg);
-                } else if (result.contains("turn") && result.contains("left")) {
-                    android.os.Message msg = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.TURN_LEFT);
-                    mHandler.sendMessage(msg);
-                } else if (result.contains("turn") && result.contains("right")) {
-                    android.os.Message msg = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.TURN_RIGHT);
-                    mHandler.sendMessage(msg);
-                } else if (result.contains("turn") && result.contains("around")) {
-                    android.os.Message msg = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.TURN_AROUND);
-                    mHandler.sendMessage(msg);
-                } else if (result.contains("turn") && result.contains("full")) {
-                    android.os.Message msg = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.TURN_FULL);
-                    mHandler.sendMessage(msg);
-                } else if (result.contains("are") && result.contains("you")  && result.contains("happy")) {
-                    android.os.Message msg4 = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.LOOK_COMFORT);
-                    mHandler.sendMessage(msg4);
-                    mSpeaker.loomoSpeaks("Yes, I am very happy, I am the happiest robot in the world");
-                } else if (result.contains("are") && result.contains("you")  && result.contains("worried")) {
-                    android.os.Message msg = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.LOOK_NO_NO);
-                    mHandler.sendMessage(msg);
-                    mSpeaker.loomoSpeaks("I little bit, you know I  am a baby and sometimes the humans wish me to do to much things");
-                } else if (result.contains("are") && result.contains("you")  && result.contains("scared")) {
-                    android.os.Message msg = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.LOOK_NO_NO);
-                    mHandler.sendMessage(msg);
-                    mSpeaker.loomoSpeaks("not right now, but please let me know if you see terminator");
-                } else if (result.contains("what") && result.contains("kind")  && result.contains("of") && result.contains("robot")  && result.contains("are")  && result.contains("you")) {
-                    android.os.Message msg = mHandler.obtainMessage(ACTION_BEHAVE, BehaviorList.LOOK_NO_NO);
-                    mHandler.sendMessage(msg);
-                    mSpeaker.loomoSpeaks("well, I am a small robot very young");
-                } else if (result.contains("are") && result.contains("you")  && result.contains("a") && result.contains("robot") ) {
-                    mSpeaker.loomoSpeaks("Yes,  I am a robot");
+                }else{
+                    Log.e(TAG, "I should recognize an expression " +  result);
+                    for( int i = 0; i <= dialogs.length - 1; i++) {
+                        if (result.contains(dialogs[i][0].trim())){
+                            String speechString = "";
+                            speechString = dialogs[i][1];
+                            mSpeaker.loomoSpeaks(speechString);
+                        }
+                    }
+                    return false;
                 }
-                return false;
             }
 
             @Override
@@ -218,27 +197,13 @@ public class ListenControlManager {
         if (mRecognitionLanguage == Languages.EN_US) {
             mMoveSlotGrammar = new GrammarConstraint();
             mMoveSlotGrammar.setName("movement slots grammar");
+            Slot dialogSlot = new Slot("dialogs");
+            dialogSlot.setOptional(false);
 
-            Slot moveSlot = new Slot("movement");
-            moveSlot.setOptional(false);
-            moveSlot.addWord("look");
-            moveSlot.addWord("turn");
-            mMoveSlotGrammar.addSlot(moveSlot);
-
-            Slot orientationSlot = new Slot("orientation");
-            orientationSlot.setOptional(false);
-            orientationSlot.addWord("right");
-            orientationSlot.addWord("left");
-            orientationSlot.addWord("up");
-            orientationSlot.addWord("down");
-            orientationSlot.addWord("full");
-            orientationSlot.addWord("around");
-            orientationSlot.addWord("are you happy");
-            orientationSlot.addWord("are you worried");
-            orientationSlot.addWord("are you scared");
-            orientationSlot.addWord("are you a robot");
-            orientationSlot.addWord("what kind of robot are you");
-            mMoveSlotGrammar.addSlot(orientationSlot);
+            for( int i = 0; i <= dialogs.length - 1; i++) {
+                dialogSlot.addWord(dialogs[i][0].trim());
+            }
+            mMoveSlotGrammar.addSlot(dialogSlot);
         } else {
             // Recognition language dosen't support
             Log.e(TAG, "Speakerlanguage dosen't support " + mRecognitionLanguage);

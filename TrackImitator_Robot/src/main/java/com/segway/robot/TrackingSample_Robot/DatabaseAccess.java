@@ -1,9 +1,5 @@
 package com.segway.robot.TrackingSample_Robot;
 
-/**
- * Created by LCabrera on 24/10/2017.
- */
-
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
@@ -26,7 +22,7 @@ public class DatabaseAccess extends Activity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-   }
+    }
 
     private void initView() {
         mTextView = (TextView) findViewById(R.id.tvHint);
@@ -54,7 +50,7 @@ public class DatabaseAccess extends Activity  {
      * Open the database connection.
      */
     public void open() {
-        this.database = openHelper.getWritableDatabase();
+        this.database = openHelper.getReadableDatabase();
     }
 
     /**
@@ -132,19 +128,30 @@ public class DatabaseAccess extends Activity  {
 
     }
 
-    public String getDialogs(){
+    public String[][] getDialogs(){
 
         String sentence = "";
         String response = "";
+
         Cursor cursor =  database.rawQuery("SELECT sentence, response FROM dialogs", null);
 
         cursor.moveToFirst();
+        int position, countRecords;
+        countRecords = cursor.getCount();
+
+        String[][] dialogs = new String[countRecords][2];
+
         while (!cursor.isAfterLast()){
+            position = cursor.getPosition();
             sentence =  cursor.getString(0);
             response =  cursor.getString(1);
-       }
+
+            dialogs[position][0] = sentence ;
+            dialogs[position][1] = response ;
+            cursor.moveToNext();
+        }
         cursor.close();
 
-        return response;
+        return dialogs;
     }
 }

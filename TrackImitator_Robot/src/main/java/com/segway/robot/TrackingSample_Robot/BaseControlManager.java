@@ -13,7 +13,6 @@ public class BaseControlManager {
     private boolean mIsBindSuccess = false;
 
     public BaseControlManager(Context context) {
-        Log.d(TAG, "BaseControlManager() called");
         mBase = Base.getInstance();
         mBase.bindService(context.getApplicationContext(), mBindStateListener);
     }
@@ -22,7 +21,6 @@ public class BaseControlManager {
     private ServiceBinder.BindStateListener mBindStateListener = new ServiceBinder.BindStateListener() {
         @Override
         public void onBind() {
-            Log.d(TAG, "Base bind success");
             mBase.setControlMode(Base.CONTROL_MODE_RAW);
             mIsBindSuccess = true;
         }

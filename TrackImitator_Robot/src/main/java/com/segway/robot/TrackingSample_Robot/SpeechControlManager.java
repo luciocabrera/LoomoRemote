@@ -36,7 +36,7 @@ public class SpeechControlManager {
                 Log.d(TAG, "Speaker onBind");
 
                 // Speak welcome words
-               // loomoSpeaks("Hello, my name is Loomo.");
+                // loomoSpeaks("Hello, my name is Loomo.");
                 mSpeakerReady = true;
             }
 
