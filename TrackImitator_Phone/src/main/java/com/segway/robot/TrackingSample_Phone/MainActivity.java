@@ -36,16 +36,30 @@ public class MainActivity extends Activity {
 
     private static final String TAG = "TrackingActivity_Phone";
 
+    //Messages to Say
+    private static final int MSG_HI = 1;
+    private static final int MSG_BYE = 2;
+    private static final int MSG_EXCUSE = 3;
+
+    //Actions
+    private static final int ACTION_SAY_MSG = 6;
+    private static final int ACTION_SEND_CONTACT = 7;
+    private static final int ACTION_MOVE =  8;
+
+    //UI Controls
     private EditText mEditText;
     private EditText mEditTextMessage;
     private Spinner cmbName;
     private ImageView imgPlace;
 
+    //Robot Connection
     private MobileMessageRouter mMobileMessageRouter = null;
     private MessageConnection mMessageConnection = null;
 
+    ///Others
     float SENSITIVITY = 2;
 
+    //Robot Parts
     private enum bodyPartRobot {
         BASE ,
         HEAD
@@ -173,6 +187,7 @@ public class MainActivity extends Activity {
 
         // Define final variables since they have to be accessed from inner class
         final DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+
         // Open the database
         databaseAccess.open();
 
@@ -300,23 +315,20 @@ public class MainActivity extends Activity {
     public void onClick(final View v) {
         switch (v.getId()) {
             case R.id.btnBind:
-                // init connection to Robot
                 initConnection();
                 break;
-
-            case R.id.btnSendMessage:
-                int messageId = Integer.parseInt(mEditTextMessage.getText().toString());
-                sendMessage(1, messageId);
+            case R.id.btnHi:
+                sendMessage(ACTION_SAY_MSG, MSG_HI);
                 break;
-
+            case R.id.btnBye:
+                sendMessage(ACTION_SAY_MSG, MSG_BYE);
+                break;
+            case R.id.btnExcuse:
+                sendMessage(ACTION_SAY_MSG, MSG_EXCUSE);
+                break;
             case R.id.btnSendContactKey:
-                Log.e(TAG, "GETTING MESSAGE..."  );
-                int messageId_ = Integer.parseInt(mEditTextMessage.getText().toString());
-                sendMessage(2, messageId_);
-                break;
-
-            case R.id.btnResetOrientation:
-                resetHeadOrientation();
+                int contactId = Integer.parseInt(mEditTextMessage.getText().toString());
+                sendMessage(ACTION_SEND_CONTACT, contactId);
                 break;
         }
     }
@@ -336,27 +348,6 @@ public class MainActivity extends Activity {
             Toast.makeText(this, "Connection init FAILED", Toast.LENGTH_SHORT).show();
             Log.e(TAG, "Connection init FAILED", e);
         }
-    }
-
-    // reset Head's Robot
-    private void resetHeadOrientation() {
-
-        if (mMessageConnection != null) {
-            ByteBuffer buffer = ByteBuffer.allocate(4);
-            buffer.putInt(3);
-            byte[] messageByte = buffer.array();
-
-            try {
-                Log.e(TAG, "RESETTING HEAD ORIENTATION..."  );
-                mMessageConnection.sendMessage(new BufferMessage(messageByte));
-            } catch (MobileException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        else
-            Toast.makeText(this, "No Connection", Toast.LENGTH_SHORT).show();
     }
 
     // handle the  Text to Speak (TTS)
@@ -384,7 +375,7 @@ public class MainActivity extends Activity {
     private void sendMove(int partRobot, double linearVelocity, double angularVelocity){
         if (mMessageConnection != null) {
             ByteBuffer buffer = ByteBuffer.allocate(4 + 4 + 8 + 8);
-            buffer.putInt(0);
+            buffer.putInt(ACTION_MOVE);
             buffer.putInt(partRobot);
             buffer.putDouble(linearVelocity);
             buffer.putDouble(angularVelocity);

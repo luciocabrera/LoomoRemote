@@ -8,7 +8,7 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
  */
 
 public class DatabaseOpenHelper extends SQLiteAssetHelper {
-    private static final String DATABASE_NAME = "loomoRemote_.db";
+    private static final String DATABASE_NAME = "loomo.db";
     private static final int DATABASE_VERSION = 1;
 
     public DatabaseOpenHelper(Context context) {

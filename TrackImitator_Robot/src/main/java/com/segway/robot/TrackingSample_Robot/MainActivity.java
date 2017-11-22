@@ -32,11 +32,20 @@ import java.nio.ByteBuffer;
 public class MainActivity extends Activity {
     private final String TAG = "TrackingActivity_Robot";
 
+    //Actions
     private static final int ACTION_SHOW_MSG = 1;
     private static final int ACTION_BEHAVE = 2;
     private static final int ACTION_DOWNLOAD_AND_TRACK = 3;
     private static final int ACTION_START_RECOGNITION = 4;
     private static final int ACTION_STOP_RECOGNITION = 5;
+    private static final int ACTION_SAY_MSG = 6;
+    private static final int ACTION_SEND_CONTACT = 7;
+    private  static final int ACTION_MOVE =  8;
+
+    //Messages to Say
+    private static final int MSG_HI = 1;
+    private static final int MSG_BYE = 2;
+    private static final int MSG_EXCUSE = 3;
 
     private Context mContext;
     private DatabaseAccess databaseAccess;
@@ -52,9 +61,7 @@ public class MainActivity extends Activity {
     private Emoji mEmoji;
     private static final int BASE = 0;
     private static final int HEAD = 1;
-    private static final int MOVE = 0;
-    private static final int DIALOG = 1;
-    private static final int CONTACT = 2;
+
 
 
     private final Handler mHandler = new Handler() {
@@ -255,43 +262,26 @@ public class MainActivity extends Activity {
         return part;
     }
 
-    private int getCalled(int idCalled){
-
-        int called = MOVE;
-        switch (idCalled) {
-            case 0:
-                called = MOVE;
-                break;
-            case 1:
-                called = DIALOG;
-                break;
-            case 2:
-                called = CONTACT;
-                break;
-        }
-        return called;
-    }
-
     private void actOnData(byte[] bytes){
         ByteBuffer buffer = ByteBuffer.wrap(bytes);
         int callRobot = buffer.getInt();
-        callRobot = getCalled(callRobot);
+       // callRobot = getCalled(callRobot);
 
         while(buffer.hasRemaining()) {
             try {
                 switch (callRobot){
-                    case MOVE:
+                    case ACTION_MOVE:
                         int partRobot = buffer.getInt();
                         partRobot = getpartRobot(partRobot);
                         float linearVelocity = (float) buffer.getDouble();
                         float angularVelocity = (float) buffer.getDouble();
                         moveRobot(partRobot, linearVelocity, angularVelocity);
                         break;
-                    case DIALOG:
+                    case ACTION_SAY_MSG:
                         int idSpeech = buffer.getInt();
                         speakRobot(idSpeech);
                         break;
-                    case CONTACT:
+                    case ACTION_SEND_CONTACT:
                         int idContact = buffer.getInt();
                         String strIdContact=  String.valueOf(idContact);
                         getMessageContact(String.valueOf(strIdContact));
@@ -327,23 +317,14 @@ public class MainActivity extends Activity {
         mHandler.sendMessage(msg);
 
         switch (IdSpeech){
-            case 1:
-                mSpeaker.loomoSpeaks("Hi everybody");
+            case MSG_HI:
+                mSpeaker.loomoSpeaks("Hi everyone");
                 break;
-            case 2:
-                mSpeaker.loomoSpeaks("Hi body, How is going?");
+            case MSG_BYE:
+                mSpeaker.loomoSpeaks("good bye");
                 break;
-            case 3:
-                mSpeaker.loomoSpeaks("I am very well");
-                break;
-            case 4:
-                mSpeaker.loomoSpeaks("would you like something to drink?");
-                break;
-            case 5:
-                mSpeaker.loomoSpeaks("very good, you can go to the kitchen and serve yourself");
-                break;
-            case 6:
-                mSpeaker.loomoSpeaks("I am sorry, I didn't get it, could you please repeat again?");
+            case MSG_EXCUSE:
+                mSpeaker.loomoSpeaks("excuse me please");
                 break;
         }
     }

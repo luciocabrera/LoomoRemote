@@ -4,10 +4,8 @@ import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 import com.segway.robot.sdk.base.bind.ServiceBinder;
-import com.segway.robot.sdk.emoji.configure.BehaviorList;
 import com.segway.robot.sdk.voice.Languages;
 import com.segway.robot.sdk.voice.Recognizer;
-import com.segway.robot.sdk.voice.Speaker;
 import com.segway.robot.sdk.voice.VoiceException;
 import com.segway.robot.sdk.voice.grammar.GrammarConstraint;
 import com.segway.robot.sdk.voice.grammar.Slot;
@@ -15,7 +13,7 @@ import com.segway.robot.sdk.voice.recognition.RecognitionListener;
 import com.segway.robot.sdk.voice.recognition.RecognitionResult;
 import com.segway.robot.sdk.voice.recognition.WakeupListener;
 import com.segway.robot.sdk.voice.recognition.WakeupResult;
-import com.segway.robot.sdk.voice.tts.TtsListener;
+
 
 /**
  * Created by LCabrera on 27/10/2017.
@@ -29,7 +27,7 @@ public class ListenControlManager {
     private SpeechControlManager mSpeaker;
     private WakeupListener mWakeupListener;
     private RecognitionListener mRecognitionListener;
-    private GrammarConstraint mMoveSlotGrammar;
+    private GrammarConstraint dialogSlotGrammar;
     private ServiceBinder.BindStateListener mRecognitionBindStateListener;
     private Handler mHandler;
     private static final int ACTION_SHOW_MSG = 1;
@@ -40,7 +38,7 @@ public class ListenControlManager {
         mRecognizer = Recognizer.getInstance();
         mSpeaker = mSpeaker_;
         initListeners();
-        this.mHandler = mHandler_;
+        mHandler = mHandler_;
         //bind the recognition service.
         mRecognizer.bindService(context.getApplicationContext(), mRecognitionBindStateListener);
         this.initDialogs(context);
@@ -68,17 +66,19 @@ public class ListenControlManager {
                     mRecognitionLanguage = mRecognizer.getLanguage();
                     if (mRecognitionLanguage == Languages.EN_US)
                         initControlGrammar();
-                    mRecognizer.addGrammarConstraint(mMoveSlotGrammar);
+                        mRecognizer.addGrammarConstraint(dialogSlotGrammar);
+                        mRecognitionReady = true;
+                        mRecognizer.startRecognition(mWakeupListener, mRecognitionListener);
 
                     // if ready, start recognition
-                    mRecognitionReady = true;
+/*                    mRecognitionReady = true;
                     if(mRecognitionReady) {
                         try {
                             mRecognizer.startRecognition(mWakeupListener, mRecognitionListener);
                         } catch (VoiceException e) {
                             Log.e(TAG, "Exception: ", e);
                         }
-                    }
+                    }*/
                 } catch (VoiceException e) {
                     Log.e(TAG, "Exception: ", e);
                 }
@@ -109,7 +109,6 @@ public class ListenControlManager {
             public void onWakeupResult(WakeupResult wakeupResult) {
                 //show the wakeup result and wakeup angle.
                 Log.d(TAG, "wakeup word:" + wakeupResult.getResult() + ", angle: " + wakeupResult.getAngle());
-
             }
 
             @Override
@@ -143,7 +142,7 @@ public class ListenControlManager {
 
                 if (result.contains("hello") || result.contains("hi")) {
                     try {
-                        mRecognizer.removeGrammarConstraint(mMoveSlotGrammar);
+                        mRecognizer.removeGrammarConstraint(dialogSlotGrammar);
                     } catch (VoiceException e) {
                         Log.e(TAG, "Exception: ", e);
                     }
@@ -159,6 +158,7 @@ public class ListenControlManager {
                         }
                     }
                     return false;
+
                 }
             }
 
@@ -195,20 +195,20 @@ public class ListenControlManager {
     // init control grammar.
     private void initControlGrammar() {
         if (mRecognitionLanguage == Languages.EN_US) {
-            mMoveSlotGrammar = new GrammarConstraint();
-            mMoveSlotGrammar.setName("movement slots grammar");
+            dialogSlotGrammar = new GrammarConstraint();
+            dialogSlotGrammar.setName("dialogs slots grammar");
             Slot dialogSlot = new Slot("dialogs");
             dialogSlot.setOptional(false);
 
             for( int i = 0; i <= dialogs.length - 1; i++) {
                 dialogSlot.addWord(dialogs[i][0].trim());
             }
-            mMoveSlotGrammar.addSlot(dialogSlot);
+            dialogSlotGrammar.addSlot(dialogSlot);
         } else {
             // Recognition language dosen't support
             Log.e(TAG, "Speakerlanguage dosen't support " + mRecognitionLanguage);
-            android.os.Message msg = this.mHandler.obtainMessage(ACTION_SHOW_MSG, "Speakerlanguage dosen't support " + mRecognitionLanguage);
-            this.mHandler.sendMessage(msg);
+            android.os.Message msg = mHandler.obtainMessage(ACTION_SHOW_MSG, "Speakerlanguage dosen't support " + mRecognitionLanguage);
+            mHandler.sendMessage(msg);
         }
     }
 
