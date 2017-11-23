@@ -36,8 +36,6 @@ public class MainActivity extends Activity {
     private static final int ACTION_SHOW_MSG = 1;
     private static final int ACTION_BEHAVE = 2;
     private static final int ACTION_DOWNLOAD_AND_TRACK = 3;
-    private static final int ACTION_START_RECOGNITION = 4;
-    private static final int ACTION_STOP_RECOGNITION = 5;
     private static final int ACTION_SAY_MSG = 6;
     private static final int ACTION_SEND_CONTACT = 7;
     private  static final int ACTION_MOVE =  8;
@@ -72,18 +70,12 @@ public class MainActivity extends Activity {
                 case ACTION_SHOW_MSG:
                     mTextView.setText(msg.obj.toString());
                     break;
-                case ACTION_START_RECOGNITION:
-                    mRecognizer.startRecognition();
-                    break;
-                case ACTION_STOP_RECOGNITION:
-                    mRecognizer.stopRecognition();
-                    break;
                 case ACTION_BEHAVE:
                     try {
                         mEmoji.startAnimation(RobotAnimatorFactory.getReadyRobotAnimator((Integer)msg.obj), new EmojiPlayListener() {
                             @Override
                             public void onAnimationStart(RobotAnimator animator) {
-                                Log.d(TAG, "onAnimationStart: " + animator);
+                                   Log.d(TAG, "onAnimationStart: " + animator);
                             }
 
                             @Override
@@ -265,7 +257,6 @@ public class MainActivity extends Activity {
     private void actOnData(byte[] bytes){
         ByteBuffer buffer = ByteBuffer.wrap(bytes);
         int callRobot = buffer.getInt();
-       // callRobot = getCalled(callRobot);
 
         while(buffer.hasRemaining()) {
             try {

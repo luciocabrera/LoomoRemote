@@ -68,17 +68,7 @@ public class ListenControlManager {
                         initControlGrammar();
                         mRecognizer.addGrammarConstraint(dialogSlotGrammar);
                         mRecognitionReady = true;
-                        mRecognizer.startRecognition(mWakeupListener, mRecognitionListener);
-
-                    // if ready, start recognition
-/*                    mRecognitionReady = true;
-                    if(mRecognitionReady) {
-                        try {
-                            mRecognizer.startRecognition(mWakeupListener, mRecognitionListener);
-                        } catch (VoiceException e) {
-                            Log.e(TAG, "Exception: ", e);
-                        }
-                    }*/
+                        mRecognizer.startRecognitionAndWakeup(mRecognitionListener, mWakeupListener);
                 } catch (VoiceException e) {
                     Log.e(TAG, "Exception: ", e);
                 }
@@ -172,24 +162,6 @@ public class ListenControlManager {
             }
         };
 
-    }
-
-    public void startRecognition() {
-
-        try {
-            mRecognizer.startRecognition(mWakeupListener, mRecognitionListener);
-        } catch (VoiceException e) {
-            Log.e(TAG, "Exception: ", e);
-        }
-    }
-
-    public void stopRecognition() {
-
-        try {
-            mRecognizer.stopRecognition();
-        } catch (VoiceException e) {
-            Log.e(TAG, "Exception: ", e);
-        }
     }
 
     // init control grammar.

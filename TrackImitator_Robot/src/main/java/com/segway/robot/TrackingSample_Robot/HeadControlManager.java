@@ -22,7 +22,7 @@ public class HeadControlManager implements HeadControlHandler{
         @Override
         public void onBind() {
             Log.d(TAG, "onBind() called");
-            mHead.setMode(Head.MODE_ORIENTATION_LOCK);
+            mHead.setMode(Head.MODE_EMOJI);
             mIsBindSuccess = true;
         }
 
